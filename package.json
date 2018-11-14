@@ -1,20 +1,20 @@
 {
   "name": "ethereum-network",
   "version": "1.0.0",
-  "description": "",
+  "description": "Library for interacting with Ethereum Nodes and Smart Contracts",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marbaj/ethereum-network.git"
+    "url": "git+https://github.com/ethereum-network.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/marbaj/ethereum-network/issues"
+    "url": "https://github.com/ethereum-network/issues"
   },
   "homepage": "https://github.com/marbaj/ethereum-network#readme",
   "dependencies": {
