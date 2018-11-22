@@ -18,11 +18,10 @@ contract Mission {
         return address(this).balance;
     }
 
-    function submit () external returns (address value) {
-     //   address(this).transer
+    function submit () external returns (uint value) {
+     // address(this).transer
         address(msg.sender).transfer(10);
-
-        return msg.sender;
+        return address(msg.sender).balance;
     }
 
 }

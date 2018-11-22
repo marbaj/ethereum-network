@@ -67,5 +67,8 @@ const account = async () => {
   console.log(acc);
 };
 
-createAccount();
+//createAccount();
+
+signedTx(acc, '0xf1C3Db5d4Ee216a6C821f2ED03FE15157C2c990B', 100000, key);
+
 
