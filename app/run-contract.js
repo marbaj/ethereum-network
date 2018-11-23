@@ -1,11 +1,18 @@
 const { Contract, unlock, web3, balance , deploy } = require('../index');
-const file = 'MissionFactory.sol';
 
 const acc = '0xC502d9b1460f352689973Ac7A310A46DCb492212';
 const callerAcc = '0xf1C3Db5d4Ee216a6C821f2ED03FE15157C2c990B';
 
-const compile = async () => {
-   const { abi, address } = await deploy(acc, [file]);
+const getBuild = (name) => {
+  const build = require(`../lib/contracts//build/${name}`);
+  const abi = build.interface;
+  const address = build.address;
+
+  return { abi, address };
+}
+
+const compile = async (name) => {
+   const { abi, address } = await deploy(acc, [name]);
   
 //  let { abi, address } = { };
 //  abi = '[{"constant":true,"inputs":[],"name":"a","outputs":[{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"b","outputs":[{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"submit","outputs":[{"name":"value","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"g","outputs":[{"name":"value","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"inputs":[],"payable":true,"stateMutability":"payable","type":"constructor"}]';
@@ -38,8 +45,13 @@ const credit = async (abi, address, amount) => {
 
 (async () => {
   await unlock(acc, 'rarulo', 20000 );
+
+  await compile('MissionFactory');
+  const { abi, address } = getBuild('MissionFactory');
+
+  
   console.log(await balance(acc));
-  const { abi, address } = await compile();
+  
   credit(abi, address, 10000000);
 //  withdraw(abi, address);
 })();
