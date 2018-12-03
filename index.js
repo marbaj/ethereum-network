@@ -1,9 +1,9 @@
+let web3, accounts, contracts;
 
-//const ENDPOINT = 'a44f1015be38211e89bc60a246b610f4-235157082.us-east-1.elb.amazonaws.com';
-const ENDPOINT = '127.0.0.1:7545';
+const init = (endpoint) => {
+  web3 = require('./lib/eth')(endpoint, protocol = 'http');
+  accounts = require('./lib/accounts');
+  contracts = require('./lib/contracts/Contract');
+};
 
-const web3 = require('./lib/eth')(ENDPOINT);
-const accounts = require('./lib/accounts');
-const contracts = require('./lib/contracts/Contract');
-
-module.exports = { web3, ...accounts, ...contracts };
+module.exports = { init, web3, ...accounts, ...contracts };
