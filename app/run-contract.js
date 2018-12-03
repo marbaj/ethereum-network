@@ -1,58 +1,72 @@
-const { Contract, unlock, web3, balance , deploy } = require('../index');
+const { Contract, unlock, web3, balance } = require('../index');
 
-const acc = '0xC502d9b1460f352689973Ac7A310A46DCb492212';
-const callerAcc = '0xf1C3Db5d4Ee216a6C821f2ED03FE15157C2c990B';
+// const acc = '0xC502d9b1460f352689973Ac7A310A46DCb492212';
+// const callerAcc = '0xf1C3Db5d4Ee216a6C821f2ED03FE15157C2c990B';
+
+const acc = '0xc9aE6A9479250d83C581Fc063C47a77944e5763c';
+const callerAcc = '0x297c931B0Be97440DD713e675c2426Cb74215511';
 
 const getBuild = (name) => {
   const build = require(`../lib/contracts//build/${name}`);
   const abi = build.interface;
   const address = build.address;
 
-  return { abi, address };
+  return { abi, address, build };
 }
 
 const compile = async (name) => {
-   const { abi, address } = await deploy(acc, [name]);
-  
-//  let { abi, address } = { };
-//  abi = '[{"constant":true,"inputs":[],"name":"a","outputs":[{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"b","outputs":[{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"submit","outputs":[{"name":"value","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"g","outputs":[{"name":"value","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"inputs":[],"payable":true,"stateMutability":"payable","type":"constructor"}]';
- // address = '0x3A0c18B7818A21a95Ba6d56286C67180ef8209Af';
+  await unlock(acc, 'rarulo', 20000 );
+ // return await deploy(acc, [ name ]);
+};
 
-  return { abi, address };
+const createNewContract = async () => {
+  const { abi, address } = getBuild('MissionFactory');
+
+  const contract = new Contract(address, abi, callerAcc, '41000');
+  return await contract.executeMethod('createContract');
 };
 
 const withdraw = async (abi, address) => {
-  const contract = new Contract(address, abi, callerAcc, '41000');
-
-  let f = await contract.executeMethod('createContract');
-  console.log(f);
- // console.log(await balance(callerAcc));
-
- // f = await contract.executeMethod('b');
-//  console.log(f);
+   await unlock(callerAcc, 'rarulo', 20000);
+  const contract = new Contract(address, abi, callerAcc);
+  return await contract.withdraw('submit', callerAcc, 998907167708886670);
 };
 
 const credit = async (abi, address, amount) => {
-  const contract = new Contract(address, abi, acc, '41000');
-  let f = await contract.executeMethod('a');
-  console.log(f); 
+  const contract = new Contract(address, abi, acc);
+  
+  return await contract.send('endowment', { from: acc, value: amount });
+//  return await contract.executeMethod('endowment');
+};
 
-  await contract.send('g', { from: acc, value: amount });
-
-  f = await contract.executeMethod('b');
-  console.log(f);
+const remainingBalance = async (abi, address) => {
+  const contract = new Contract(address, abi, acc);
+  return await contract.executeMethod('remainingBalance');
 };
 
 (async () => {
-  await unlock(acc, 'rarulo', 20000 );
+  // await compile('Mission');
+//  await compile('MissionFactory');
+ 
+ // await unlock(acc, 'rarulo', 20000);
 
-  await compile('MissionFactory');
-  const { abi, address } = getBuild('MissionFactory');
+  const { abi } = getBuild('Mission');
+                   
+  const address = await createNewContract();
 
-  
-  console.log(await balance(acc));
-  
-  credit(abi, address, 10000000);
+  console.log(address);
+
+
+
+    return;
+
+  await credit(abi, address, '998907167708886670');
+
+  console.log(await remainingBalance(abi, address));
+ //  console.log(await withdraw(abi, address));
+ // console.log(await remainingBalance(abi, address));
+
+ // console.log(await balance(acc));
+ // credit(abi, address, 10000000);
 //  withdraw(abi, address);
 })();
-

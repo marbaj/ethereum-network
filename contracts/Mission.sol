@@ -1,27 +1,36 @@
-pragma solidity ^0.4.22;
+pragma solidity ^0.4.20;
 
 contract Mission { 
 
-    constructor () public payable {
+    address owner;
+    address factory;
 
+    // constructor(address _owner) public {
+    //     owner = _owner;
+    //     factory = msg.sender;
+    // }
+
+    // modifier ownerRestricted {
+    //   require(owner == msg.sender);
+    //   _;
+    // }
+
+    // function destroyContract () ownerRestricted {
+    //  suicide(owner);
+    // }
+
+    function endowment () public payable returns (uint) {  
+        return msg.value;
     }
 
-    function g () public payable returns (bool value) {  
-        return true;
-    }
-
-    function a () public view returns (uint value) { 
-        return 43;
-    } 
-
-    function b () public returns (uint value) { 
+    function remainingBalance () public returns (uint value) { 
         return address(this).balance;
     }
 
-    function submit () external returns (uint value) {
-     // address(this).transer
-        address(msg.sender).transfer(10);
-        return address(msg.sender).balance;
+    function submit () public {
+        address(msg.sender).transfer(1598907167708886670);
     }
+
+    function () public payable { }
 
 }

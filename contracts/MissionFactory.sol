@@ -3,11 +3,25 @@ pragma solidity ^0.4.22;
 import * as mission from "./Mission.sol";
 
 contract MissionFactory {
-  //  address[] newContracts;
 
-    function createContract() public returns (address) {
-        address newContract = new mission.Mission();
+    struct DataObject {
+        address contractAddress;
+        string name;
+    }
+    mapping (address => dataObject[]) public missions;
 
-        return newContract;
-    } 
+    function createContract (string name) public returns (address) {
+        address newMissions = address(new mission.Mission());
+        DataObject do = { contractAddress: newMissions}
+     
+        missions[msg.sender] = do;
+    }
+
+    // function getMissions () public return (name) {
+    //     return 
+    // }
+
+
+
+
 }

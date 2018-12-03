@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/marbaj/ethereum-network#readme",
   "dependencies": {
-    "solc": "^0.4.25",
     "web3": "^1.0.0-beta.36"
   }
 }
