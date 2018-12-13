@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/marbaj/ethereum-network#readme",
   "dependencies": {
+    "bip39": "^2.5.0",
+    "crypto-js": "^3.1.9-1",
+    "ethereumjs-wallet": "^0.6.2",
+    "i": "^0.3.6",
+    "npm": "^6.5.0",
     "web3": "^1.0.0-beta.36"
   }
 }

@@ -11,6 +11,8 @@ module.exports = (endpoint, protocol) => {
   
   const accounts = require('./lib/accounts');
   const contracts = require('./lib/contracts/Contract');
+  const wallet = require('./lib/wallet');
 
-  return { web3, ...accounts, ...contracts };
+
+  return { web3, ...accounts, ...contracts, ...wallet };
 };
